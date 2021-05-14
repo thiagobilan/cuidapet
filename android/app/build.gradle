@@ -6,6 +6,7 @@ if (localPropertiesFile.exists()) {
     }
 }
 
+
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
     throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
@@ -34,7 +35,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "br.com.bilangieri.cuida_pet"
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -52,3 +53,11 @@ android {
 flutter {
     source '../..'
 }
+
+dependencies {
+  // ...
+
+  implementation 'com.google.firebase:firebase-messaging:20.2.0'
+}
+
+apply plugin: 'com.google.gms.google-services'

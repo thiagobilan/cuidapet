@@ -3,6 +3,8 @@ import 'package:cuida_pet/app/modules/login/login_module.dart';
 import 'package:cuida_pet/app/modules/main_page/main_page_controller.dart';
 import 'package:cuida_pet/app/app_controller.dart';
 import 'package:cuida_pet/app/modules/main_page/main_page.dart';
+import 'package:cuida_pet/app/repository/usuario_repository.dart';
+import 'package:cuida_pet/app/services/usuario_services.dart';
 import 'package:cuida_pet/app/shared/auth_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,8 @@ class AppModule extends MainModule {
         // Bind((i) => MainPageController()),
         Bind((i) => AppController()),
         Bind((i) => AuthStore()),
+        Bind((i) => UsuarioRepository()),
+        Bind((i) => UsuarioServices(i.get())),
       ];
 
   @override

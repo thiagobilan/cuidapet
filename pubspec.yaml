@@ -26,12 +26,18 @@ scripts:
 
 dependencies:
   dio: ^3.0.9
+  json_annotation: ^3.0.1
+  flutter_secure_storage: ^3.3.5
   flutter_screenutil: ^1.1.0
   flutter_mobx: ^1.1.0
+  shared_preferences: ^0.5.7+3
   mobx: ^1.2.1
   flutter_modular: ^2.0.1
   flutter_icons: ^1.1.0
   firebase_auth: ^0.16.1
+  firebase_messaging: ^6.0.16
+  flutter_facebook_login: ^3.0.0
+  flutter_dotenv: ^2.1.0
   get: ^3.15.0
   flutter:
     sdk: flutter
@@ -42,6 +48,7 @@ dependencies:
 
 dev_dependencies:
   mockito: ^4.1.1
+  json_serializable: ^3.3.0
   mobx_codegen: ^1.1.0
   build_runner: ^1.10.0
   flutter_test:
@@ -61,6 +68,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/assets/images/
+    - .env
+    - .env_dev
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
