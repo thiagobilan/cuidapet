@@ -1,9 +1,11 @@
+import 'package:cuida_pet/app/core/database/connection_adm.dart';
 import 'package:cuida_pet/app/modules/home/home_module.dart';
 import 'package:cuida_pet/app/modules/login/login_module.dart';
-import 'package:cuida_pet/app/modules/main_page/main_page_controller.dart';
 import 'package:cuida_pet/app/app_controller.dart';
 import 'package:cuida_pet/app/modules/main_page/main_page.dart';
+import 'package:cuida_pet/app/repository/enderecos_repository.dart';
 import 'package:cuida_pet/app/repository/usuario_repository.dart';
+import 'package:cuida_pet/app/services/enderecos_services.dart';
 import 'package:cuida_pet/app/services/usuario_services.dart';
 import 'package:cuida_pet/app/shared/auth_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -14,8 +16,14 @@ class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
         // Bind((i) => MainPageController()),
+        Bind((i) => ConnectionADM(), lazy: false),
         Bind((i) => AppController()),
+
         Bind((i) => AuthStore()),
+
+        Bind((i) => EnderecosRepository()),
+        Bind((i) => EnderecosServices(i.get())),
+
         Bind((i) => UsuarioRepository()),
         Bind((i) => UsuarioServices(i.get())),
       ];

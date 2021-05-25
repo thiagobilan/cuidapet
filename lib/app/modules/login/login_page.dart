@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cuida_pet/app/core/database/connection.dart';
 import 'package:cuida_pet/app/shared/components/facebook_button.dart';
 import 'package:cuida_pet/app/shared/theme_utils.dart';
 import 'package:flutter/material.dart';
@@ -20,33 +21,46 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
   //use 'controller' variable to access controller
 
   @override
+  void initState() {
+    super.initState();
+    testeConnect();
+  }
+
+  Future<void> testeConnect() async {
+    var db = await Connection().instance;
+    var result = await db.rawQuery('select * from endereco');
+    print(result);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ThemeUtils.primaryColor,
-      body: Container(
-        width: ScreenUtil.screenWidthDp,
-        height: ScreenUtil.screenHeightDp,
-        child: Stack(
-          children: [
-            Container(
-              width: ScreenUtil.screenWidthDp,
-              height: ScreenUtil.screenHeightDp < 700
-                  ? 800
-                  : ScreenUtil.screenHeightDp * .95,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('lib/assets/images/login_background.png'),
-                    fit: BoxFit.fill),
+      body: SingleChildScrollView(
+        child: Container(
+          width: ScreenUtil.screenWidthDp,
+          height: ScreenUtil.screenHeightDp,
+          child: Stack(
+            children: [
+              Container(
+                width: ScreenUtil.screenWidthDp,
+                height: ScreenUtil.screenHeightDp < 700
+                    ? 800
+                    : ScreenUtil.screenHeightDp * .95,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image:
+                          AssetImage('lib/assets/images/login_background.png'),
+                      fit: BoxFit.fill),
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(
-                top: Platform.isIOS
-                    ? ScreenUtil.statusBarHeight + 30
-                    : ScreenUtil.statusBarHeight + 5,
-              ),
-              width: double.infinity,
-              child: SingleChildScrollView(
+              Container(
+                margin: EdgeInsets.only(
+                  top: Platform.isIOS
+                      ? ScreenUtil.statusBarHeight + 30
+                      : ScreenUtil.statusBarHeight + 10,
+                ),
+                width: double.infinity,
                 child: Column(
                   children: [
                     Image.asset(
@@ -57,9 +71,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     _buildForm(),
                   ],
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -179,7 +193,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                 onTap: () => controller.facebookLogin(),
               ),
               FlatButton(
-                onPressed: () {},
+                onPressed: () => Modular.link.pushNamed('/cadastro'),
                 child: Text('Cadastre-se'),
               )
             ],

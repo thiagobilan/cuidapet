@@ -31,4 +31,9 @@ class UsuarioRepository {
         .get('/usuario')
         .then((value) => UsuarioModel.fromJson(value.data));
   }
+
+  Future<void> cadastrarUsuario(String email, String senha) async {
+    await CustomDio.instance
+        .post('/login/cadastrar', data: {'email': email, 'senha': senha});
+  }
 }
