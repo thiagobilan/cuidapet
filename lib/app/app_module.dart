@@ -4,8 +4,10 @@ import 'package:cuida_pet/app/modules/login/login_module.dart';
 import 'package:cuida_pet/app/app_controller.dart';
 import 'package:cuida_pet/app/modules/main_page/main_page.dart';
 import 'package:cuida_pet/app/repository/enderecos_repository.dart';
+import 'package:cuida_pet/app/repository/fornecedor_repository.dart';
 import 'package:cuida_pet/app/repository/usuario_repository.dart';
 import 'package:cuida_pet/app/services/enderecos_services.dart';
+import 'package:cuida_pet/app/services/fornecedor_service.dart';
 import 'package:cuida_pet/app/services/usuario_services.dart';
 import 'package:cuida_pet/app/shared/auth_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -19,13 +21,16 @@ class AppModule extends MainModule {
         Bind((i) => ConnectionADM(), lazy: false),
         Bind((i) => AppController()),
 
-        Bind((i) => AuthStore()),
-
         Bind((i) => EnderecosRepository()),
         Bind((i) => EnderecosServices(i.get())),
 
         Bind((i) => UsuarioRepository()),
         Bind((i) => UsuarioServices(i.get())),
+
+        Bind((i) => FornecedorRepository()),
+        Bind((i) => FornecedorService(i.get())),
+
+        Bind((i) => AuthStore()),
       ];
 
   @override
