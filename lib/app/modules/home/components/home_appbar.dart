@@ -2,6 +2,7 @@ import 'package:cuida_pet/app/modules/home/home_controller.dart';
 import 'package:cuida_pet/app/shared/theme_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -45,31 +46,36 @@ class HomeAppbar extends PreferredSize {
                       child: Material(
                         borderRadius: BorderRadius.circular(30),
                         elevation: 4,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.only(right: 20),
-                              child: Icon(
-                                Icons.search,
-                                size: 30,
+                        child: Observer(builder: (_) {
+                          return TextFormField(
+                            controller: controller.filtroNomeController,
+                            onChanged: (value) =>
+                                controller.filtrarEstabelecimentoPorNome(),
+                            decoration: InputDecoration(
+                              filled: true,
+                              suffixIcon: Padding(
+                                padding: const EdgeInsets.only(right: 20),
+                                child: Icon(
+                                  Icons.search,
+                                  size: 30,
+                                ),
                               ),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[200])),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[200])),
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[200])),
                             ),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    BorderSide(color: Colors.grey[200])),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    BorderSide(color: Colors.grey[200])),
-                            fillColor: Colors.white,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    BorderSide(color: Colors.grey[200])),
-                          ),
-                        ),
+                          );
+                        }),
                       ),
                     ),
                   )

@@ -36,26 +36,30 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     HomeAppbar _appBar = HomeAppbar(controller);
 
-    var scaffold = Scaffold(
+    return Scaffold(
       drawer: Drawer(),
       backgroundColor: Colors.grey[100],
       appBar: _appBar,
-      body: SingleChildScrollView(
-        child: Container(
-          width: ScreenUtil.screenWidthDp,
-          height: ScreenUtil.screenHeightDp -
-              (_appBar.preferredSize.height + ScreenUtil.statusBarHeight),
-          child: Column(
-            children: <Widget>[
-              _buildEndereco(),
-              _buildCategoria(),
-              Expanded(child: _buildEstabelecimentos()),
-            ],
+      body: RefreshIndicator(
+        onRefresh: () => controller.buscarEstabelecimentos(),
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: Container(
+            width: ScreenUtil.screenWidthDp,
+            // height: ScreenUtil.screenHeightDp,
+            height: ScreenUtil.screenHeightDp -
+                (_appBar.preferredSize.height + ScreenUtil.statusBarHeight),
+            child: Column(
+              children: <Widget>[
+                _buildEndereco(),
+                _buildCategoria(),
+                Expanded(child: _buildEstabelecimentos()),
+              ],
+            ),
           ),
         ),
       ),
     );
-    return scaffold;
   }
 
   _buildEndereco() {
@@ -106,24 +110,34 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     shrinkWrap: true,
                     itemCount: cats.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.all(20),
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundColor: ThemeUtils.primaryColorLight,
-                              child: Icon(
-                                categoriasIcons[cats[index].tipo],
-                                color: Colors.black,
-                                size: 30,
+                      return InkWell(
+                        onTap: () =>
+                            controller.filtrarPorCategoria(cats[index].id),
+                        child: Container(
+                          margin: const EdgeInsets.all(20),
+                          child: Column(
+                            children: [
+                              Observer(builder: (_) {
+                                return CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor:
+                                      controller.categoriaSelecionada ==
+                                              cats[index].id
+                                          ? ThemeUtils.primaryColor
+                                          : ThemeUtils.primaryColorLight,
+                                  child: Icon(
+                                    categoriasIcons[cats[index].tipo],
+                                    color: Colors.black,
+                                    size: 30,
+                                  ),
+                                );
+                              }),
+                              SizedBox(
+                                height: 10,
                               ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(cats[index].nome)
-                          ],
+                              Text(cats[index].nome)
+                            ],
+                          ),
                         ),
                       );
                     },

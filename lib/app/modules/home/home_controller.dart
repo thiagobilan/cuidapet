@@ -1,4 +1,5 @@
 import 'package:cuida_pet/app/models/fornecedor_busca_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
@@ -17,6 +18,7 @@ abstract class _HomeControllerBase with Store {
   final EnderecosServices _enderecosServices;
   final CategoriaService _categoriaService;
   final FornecedorService _fornecedorService;
+  TextEditingController filtroNomeController = TextEditingController();
 
   @observable
   EnderecoModel enderecoSelecionado;
@@ -24,6 +26,9 @@ abstract class _HomeControllerBase with Store {
   ObservableFuture<List<CategoriaModel>> categoriasFuture;
   @observable
   ObservableFuture<List<FornecedorBuscaModel>> estabelecimentosFuture;
+  List<FornecedorBuscaModel> estabelecimentosOriginais;
+  @observable
+  int categoriaSelecionada;
 
   @observable
   int pageSelecionda = 0;
@@ -42,7 +47,7 @@ abstract class _HomeControllerBase with Store {
     await temEnderecoCadastrado();
     await recuperarEnderecoSelecionado();
     buscarCategorias();
-    buscarEstabelecimentos();
+    await buscarEstabelecimentos();
   }
 
   @action
@@ -65,8 +70,44 @@ abstract class _HomeControllerBase with Store {
   }
 
   @action
-  void buscarEstabelecimentos() {
+  Future<void> buscarEstabelecimentos() async {
+    categoriaSelecionada = null;
+    filtroNomeController.text = '';
     estabelecimentosFuture = ObservableFuture(
         _fornecedorService.buscarFornecedoresProximos(enderecoSelecionado));
+    estabelecimentosOriginais = await estabelecimentosFuture;
+  }
+
+  @action
+  void filtrarPorCategoria(int id) {
+    if (categoriaSelecionada == id) {
+      categoriaSelecionada = null;
+    } else {
+      categoriaSelecionada = id;
+    }
+    _filtrarEstabelecimentos();
+  }
+
+  @action
+  void _filtrarEstabelecimentos() {
+    var fornecedores = estabelecimentosOriginais;
+    if (categoriaSelecionada != null) {
+      fornecedores = fornecedores
+          .where((element) => element.categoria.id == categoriaSelecionada)
+          .toList();
+    }
+    if (filtroNomeController.text.isNotEmpty) {
+      fornecedores = fornecedores
+          .where((element) => element.nome
+              .toLowerCase()
+              .contains(filtroNomeController.text.toLowerCase()))
+          .toList();
+    }
+    estabelecimentosFuture = ObservableFuture(Future.value(fornecedores));
+  }
+
+  @action
+  void filtrarEstabelecimentoPorNome() {
+    _filtrarEstabelecimentos();
   }
 }
