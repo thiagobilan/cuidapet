@@ -55,7 +55,6 @@ abstract class _LoginControllerBase with Store {
       Get.snackbar('Erro', 'Login ou senha inválidos');
     } catch (e) {
       Loader.hide();
-      print('ERRO AQUI É $e');
       Get.snackbar('Erro', 'Erro ao realizar login');
     }
   }

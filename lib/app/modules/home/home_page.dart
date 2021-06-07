@@ -1,13 +1,16 @@
+import 'package:cuida_pet/app/modules/home/components/home_drawer.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:cuida_pet/app/models/categoria_model.dart';
 import 'package:cuida_pet/app/models/fornecedor_busca_model.dart';
 import 'package:cuida_pet/app/modules/home/components/estabelecimento_card.dart';
 import 'package:cuida_pet/app/modules/home/components/estabelecimento_item_list.dart';
 import 'package:cuida_pet/app/modules/home/components/home_appbar.dart';
 import 'package:cuida_pet/app/shared/theme_utils.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,6 +21,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
+  HomeAppbar _appBar;
+  _HomePageState() {
+    _appBar = HomeAppbar(controller);
+  }
+
   //use 'controller' variable to access controller
   final categoriasIcons = {
     'P': Icons.pets,
@@ -34,10 +42,8 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    HomeAppbar _appBar = HomeAppbar(controller);
-
     return Scaffold(
-      drawer: Drawer(),
+      drawer: HomeDrawer(),
       backgroundColor: Colors.grey[100],
       appBar: _appBar,
       body: RefreshIndicator(

@@ -1,5 +1,6 @@
 import 'package:cuida_pet/app/core/exceptions/cuidapet_exceptions.dart';
 import 'package:cuida_pet/app/models/access_token_model.dart';
+import 'package:cuida_pet/app/models/usuario_model.dart';
 import 'package:cuida_pet/app/repository/facebook_repository.dart';
 import 'package:cuida_pet/app/repository/security_storage_repository.dart';
 import 'package:cuida_pet/app/repository/shared_prefs_repository.dart';
@@ -76,5 +77,9 @@ class UsuarioServices {
     await fireAuth.createUserWithEmailAndPassword(
         email: email, password: senha);
     await _repository.cadastrarUsuario(email, senha);
+  }
+
+  Future<UsuarioModel> atualizarImagem(String urlImage) {
+    return _repository.updateImage(urlImage);
   }
 }

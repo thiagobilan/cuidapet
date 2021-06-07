@@ -1,3 +1,4 @@
+import 'package:cuida_pet/app/repository/shared_prefs_repository.dart';
 import 'package:cuida_pet/app/shared/auth_store.dart';
 import 'package:cuida_pet/app/shared/theme_utils.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,11 @@ class _MainPageState extends State<MainPage> {
         Modular.to.pushNamedAndRemoveUntil('/login', (_) => false);
       }
     });
+  }
+
+  Future<void> sair() async {
+    var prefs = await SharedPrefsRepository.instance;
+    prefs.logout();
   }
 
   @override

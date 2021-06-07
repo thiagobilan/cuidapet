@@ -1,0 +1,5 @@
+lib/app/modules/chat_lista/chat_lista_module.dart
+lib/app/modules/chat_lista/chat_lista_page.dart
+test/app/modules/chat_lista/chat_lista_page_test.dart
+lib/app/modules/chat_lista/chat_lista_controller.dart
+test/app/modules/chat_lista/chat_lista_controller_test.dart

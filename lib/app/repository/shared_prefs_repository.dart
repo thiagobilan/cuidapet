@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cuida_pet/app/models/endereco_model.dart';
 import 'package:cuida_pet/app/models/usuario_model.dart';
+import 'package:cuida_pet/app/services/enderecos_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,8 +36,8 @@ class SharedPrefsRepository {
 
   String get deviceId => prefs.get(_DEVICE_ID);
 
-  void registerDadosUsuario(UsuarioModel usuario) {
-    prefs.setString(_DADOS_USUARIO, jsonEncode(usuario));
+  Future<void> registerDadosUsuario(UsuarioModel usuario) async {
+    await prefs.setString(_DADOS_USUARIO, jsonEncode(usuario));
   }
 
   UsuarioModel get dadosUsuario {
@@ -45,6 +46,7 @@ class SharedPrefsRepository {
 
   Future<void> logout() async {
     await prefs.clear();
+    await Modular.get<EnderecosServices>().limparEnderecos();
     await Modular.to.pushNamedAndRemoveUntil('/', ModalRoute.withName('/'));
   }
 

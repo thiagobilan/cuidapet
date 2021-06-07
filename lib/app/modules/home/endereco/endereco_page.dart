@@ -84,7 +84,6 @@ class _EnderecoPageState
                         ),
                       ),
                       itemBuilder: (BuildContext context, Prediction itemData) {
-                        print('aaaa');
                         return ListTile(
                           leading: Icon(Icons.location_on),
                           title: Text(itemData.description),

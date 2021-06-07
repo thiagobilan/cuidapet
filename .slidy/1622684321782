@@ -1,0 +1,5 @@
+lib/app/modules/meusagendamentos/meusagendamentos_module.dart
+lib/app/modules/meusagendamentos/meusagendamentos_page.dart
+test/app/modules/meusagendamentos/meusagendamentos_page_test.dart
+lib/app/modules/meusagendamentos/meusagendamentos_controller.dart
+test/app/modules/meusagendamentos/meusagendamentos_controller_test.dart

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cuida_pet/app/core/database/connection.dart';
+import 'package:cuida_pet/app/shared/components/cuidapet_textformfild.dart';
 import 'package:cuida_pet/app/shared/components/facebook_button.dart';
 import 'package:cuida_pet/app/shared/theme_utils.dart';
 import 'package:flutter/material.dart';
@@ -86,16 +87,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
           key: controller.formKey,
           child: Column(
             children: [
-              TextFormField(
+              CuidapetTextformfild(
+                label: 'Login',
                 controller: controller.loginController,
-                decoration: InputDecoration(
-                  labelText: 'Login',
-                  labelStyle: TextStyle(fontSize: 15),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    gapPadding: 0,
-                  ),
-                ),
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Login Obrigatorio.';
@@ -107,20 +101,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                 height: 20,
               ),
               Observer(builder: (_) {
-                return TextFormField(
+                return CuidapetTextformfild(
+                  label: 'Senha',
                   controller: controller.senhaController,
-                  obscureText: controller.mostrarSenha ? false : true,
-                  decoration: InputDecoration(
-                    labelText: 'Senha',
-                    labelStyle: TextStyle(fontSize: 15),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
-                      gapPadding: 0,
-                    ),
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.lock),
-                      onPressed: controller.mostraSenha,
-                    ),
+                  obscureText: controller.mostrarSenha,
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.lock),
+                    onPressed: controller.mostraSenha,
                   ),
                   validator: (value) {
                     if (value.length < 6) {

@@ -29,7 +29,14 @@ class HomeAppbar extends PreferredSize {
                       await Modular.link.pushNamed('/enderecos');
                       await controller.recuperarEnderecoSelecionado();
                       controller.buscarEstabelecimentos();
-                    })
+                    }),
+                // IconButton(
+                //   icon: Icon(Icons.exit_to_app),
+                //   onPressed: () async {
+                //     var prefs = await SharedPrefsRepository.instance;
+                //     prefs.logout();
+                //   },
+                // )
               ],
               elevation: 0,
               flexibleSpace: Stack(
@@ -48,6 +55,7 @@ class HomeAppbar extends PreferredSize {
                         elevation: 4,
                         child: Observer(builder: (_) {
                           return TextFormField(
+                            autofocus: false,
                             controller: controller.filtroNomeController,
                             onChanged: (value) =>
                                 controller.filtrarEstabelecimentoPorNome(),

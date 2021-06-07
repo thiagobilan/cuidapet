@@ -30,4 +30,8 @@ class EnderecosServices {
       String placeId) {
     return _repository.recuperaDetalhesEnderecoGooglePlace(placeId);
   }
+
+  Future<void> limparEnderecos() async {
+    await _repository.limparEnderecos();
+  }
 }

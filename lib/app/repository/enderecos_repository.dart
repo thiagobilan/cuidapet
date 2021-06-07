@@ -23,7 +23,8 @@ class EnderecosRepository {
 
   Future<void> limparEnderecos() async {
     final conn = await Connection().instance;
-    conn.rawDelete('delete * from endereco');
+    conn.rawDelete('delete from endereco');
+    print('dbLimpo');
   }
 
   Future<List<Prediction>> buscarEnderecosGoogle(String endereco) async {

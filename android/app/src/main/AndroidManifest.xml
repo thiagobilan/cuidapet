@@ -9,12 +9,19 @@
         <uses-permission android:name="android.permission.INTERNET"/>
         <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
         <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+        <uses-permission android:name="android.permission.CAMERA" />
+        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+        <uses-permission android:name="android.permission.VIBRATE" />
+
+
     <application
         android:name=".Application"
         android:label="cuida_pet"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyAbTWNXtl0RiFkgCk1I9qGDdNvnK5g1P1w"/>
+        <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="br.com.bilangieri.cuida_pet"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

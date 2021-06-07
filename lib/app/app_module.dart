@@ -1,11 +1,17 @@
 import 'package:cuida_pet/app/core/database/connection_adm.dart';
+import 'package:cuida_pet/app/modules/agendamentos/agendamentos_module.dart';
+import 'package:cuida_pet/app/modules/chat_lista/chat_lista_module.dart';
+import 'package:cuida_pet/app/modules/estabelecimento/estabelecimento_module.dart';
 import 'package:cuida_pet/app/modules/home/home_module.dart';
 import 'package:cuida_pet/app/modules/login/login_module.dart';
 import 'package:cuida_pet/app/app_controller.dart';
 import 'package:cuida_pet/app/modules/main_page/main_page.dart';
+import 'package:cuida_pet/app/modules/meusagendamentos/meusagendamentos_module.dart';
+import 'package:cuida_pet/app/repository/agendamento_repository.dart';
 import 'package:cuida_pet/app/repository/enderecos_repository.dart';
 import 'package:cuida_pet/app/repository/fornecedor_repository.dart';
 import 'package:cuida_pet/app/repository/usuario_repository.dart';
+import 'package:cuida_pet/app/services/agendamento_service.dart';
 import 'package:cuida_pet/app/services/enderecos_services.dart';
 import 'package:cuida_pet/app/services/fornecedor_service.dart';
 import 'package:cuida_pet/app/services/usuario_services.dart';
@@ -30,6 +36,9 @@ class AppModule extends MainModule {
         Bind((i) => FornecedorRepository()),
         Bind((i) => FornecedorService(i.get())),
 
+        Bind((i) => AgendamentoRepository()),
+        Bind((i) => AgendamentoService(i.get())),
+
         Bind((i) => AuthStore()),
       ];
 
@@ -41,6 +50,10 @@ class AppModule extends MainModule {
         ),
         ModularRouter('/home', module: HomeModule()),
         ModularRouter('/login', module: LoginModule()),
+        ModularRouter('/estabelecimento', module: EstabelecimentoModule()),
+        ModularRouter('/agendamento', module: AgendamentosModule()),
+        ModularRouter('/meusagendamentos', module: MeusagendamentosModule()),
+        ModularRouter('/chatLista', module: ChatListaModule()),
       ];
 
   @override
